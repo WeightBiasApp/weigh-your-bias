@@ -3,20 +3,20 @@ import tailwind from "tailwindcss";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react()],
   publicDir: "./static",
-  base: "./",
+  base: command === 'serve' ? '/' : '/WeighYourBias/', // 👈 Switch base based on dev or build
   css: {
     postcss: {
       plugins: [tailwind()],
     },
   },
   server: {
-    host: true, // 👈 This exposes the dev server on your local network (0.0.0.0)
-    port: 5173, // 👈 Optional: set a fixed port for consistency
+    host: true,
+    port: 5173,
     hmr: {
       timeout: 5000,
     },
   },
-});
+}));
